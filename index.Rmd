@@ -1,0 +1,619 @@
+---
+title: "Introduction to RAP"
+subtitle: "Official statistics in DfE"
+author: "Cam Race - Statistics Development Team"
+date: "2020/12/17" #(updated: `r format(Sys.Date(), '%Y/%m/%d')`)"
+output:
+  xaringan::moon_reader:
+        css: "xaringan-themer.css"
+---
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_duo(
+ primary_color = "#1F4257",
+ secondary_color = "#F97B64",
+ header_font_google = google_font("Poppins", "400"),
+ text_font_google   = google_font("Poppins", "250", "250i"),
+ code_font_google   = google_font("IBM Plex Mono")
+ )
+```
+
+```{r setup, include=FALSE}
+library(knitr)
+library(showtext)
+library(xaringan)
+library(rmarkdown)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(error = FALSE)
+
+```
+
+# What we'll cover
+
+???
+
+Remember to record it!!
+
+Introduce self
+
+Implementing RAP is a key aim for our division over the next year
+
+--
+
+- What RAP is
+
+--
+
+- How RAP applies to Official statistics publications
+
+--
+
+- Why we should care about RAP
+
+--
+
+- What we should be doing about it
+
+--
+
+- Demo of self-assessment app
+
+--
+
+- Demo of guidance
+
+--
+
+- Time for questions
+
+???
+
+No bad time for questions, and no stupid questions
+
+Treat RAP in the same way as the data standards and feel free to approach me with any questions or challenges you have whenever they come up
+
+---
+layout: true
+
+# What is RAP
+
+---
+
+--
+
+Best practice framework for data analysis
+
+???
+
+It's about doing our jobs in the best way we can
+
+It's also an acronym
+
+--
+
+- **R**eproducible
+
+???
+
+Same analysis, same data, same result - is the absolute minimum we aim for
+
+Code of practice - we need to have quality processes
+
+--
+
+- **A**nalytical
+
+???
+
+Easy one, we're taking raw data, examining it and then presenting it
+
+--
+
+- **P**ipelines
+
+???
+
+The process itself, something goes in one end of the pipe and comes out the other
+
+--
+
+RAP is there to help guide us to make our processes the best they can be
+
+--
+
+In practice this means using code to both automate and document our processes simultaneously
+
+???
+
+While this is focussed on official stats publications, as RAP is a set of principles it can be applied to many scenarios
+
+---
+layout: true
+
+# RAP in Official statistics
+
+---
+
+### Principles
+
+???
+
+We've come up with a handful of key principles to help define and guide us
+
+--
+
+1. All data sources for a publication should be stored in the same database
+
+???
+
+Data often comes from a variety of sources, however the very start of the pipeline relies on them all being stored in the same place
+
+--
+
+2. Files are produced using reproducible code, with no manual steps
+
+???
+
+No copy/paste, no point and click
+
+End goal is for one button to run the code and the files are produced
+
+Removing the human element, making our processes faster and more reliable at the same time - not a combination you can often achieve!
+
+Using code gives us a clear set of instructions from what has been done to the data, doing most of the documenting for us
+
+--
+
+3. Files should be appropriately version controlled
+
+???
+
+Starts out as a basic folder/file structure and towards the top end of RAP involves using git to help you track changes
+
+Both data files and code files
+
+Tracking when and what changes are made makes a huge difference
+
+Saves us time trying to go back over things to work out what has happened
+
+Helps us to simultaneously collaborate on the same code more efficiently
+
+--
+
+4. There should be basic automated quality assurance applied to outputs
+
+???
+
+4 is kind of an extension of 2
+
+I felt it was important enough for our position to highlight it on its own
+
+A lot of our QA is manual sense checking
+
+We can save a lot of time, and make it more robust by automating and standardising this
+
+---
+
+### Scope of RAP for us
+
+--
+
+.center[![Arrows defining the scope of DfE RAP plan](examples/RAP-Scope-Arrow.png)]
+
+???
+
+The data collection and cleaning stages are areas that RAP can be applied to, but we have kept this out of scope at the moment as it doesn't affect all teams
+
+Part of the process where we can see the potential for RAP to add the most value
+
+We're happy to advise and help with these other areas even if they're not the core focus 
+
+Alison Cooper has done some great work on automating QA for the SEN2 data collection which will be shown at a future div meeting - I believe it's the February one so keep an eye out for that!
+
+---
+
+A more detailed pipeline, which shows how the wider picture knits together:
+
+.center[![Detailed overview of RAP](examples/RAP-Process-Overview.png)]
+
+???
+
+This is a bit of a busy diagram, though it's quite neat for showing how much groundwork has been laid
+
+This diagram alone is over a year old, and the foundations for RAP have been building for the past few years
+
+We have EES
+
+Tidy data and the data screener are consistent points in the process
+ 
+Focus now we have the end sorted is to the beginning 
+
+---
+
+An example statistics production pipeline before:
+
+.center[![Overview of SEN2 before](examples/RAP-Process-Before.png)]
+
+???
+
+SEN2 publication which has recently done work with us in the partnership programme
+
+---
+
+An example statistics production pipeline after:
+
+.center[![Overview of SEN2 after](examples/RAP-Process-After.png)]
+
+???
+
+More streamlined, much easier and more reliable to rerun if something needs amending at the last minute
+
+---
+
+Best practice levels
+
+.center[![Hexagons breaking down RAP to real world examples](examples/RAP-in-practice.png)]
+
+???
+
+I won't go over the contents of the hexagons just now, as I'll come back to them later
+
+The self-assessment app is a series of questions, one for each hexagon you see here
+
+The guidance is structured around the hexagons, with a section for each containing more details on what they mean and how to get started
+
+Many teams will be meeting some of these hexagons already
+
+There's an aim to have teams working at great practice by the end of 2021
+
+---
+layout: true
+
+# Software
+
+---
+
+--
+
+RAP is software agnostic, there are many different tools you can use, however there a couple of guiding principles that narrow it down:
+
+--
+
+- Needs to be a code language
+
+???
+
+Code is literally writing instructions for our computer
+
+This allows us to both document and automate at the same time
+
+--
+
+- Should be open source
+
+???
+
+Open source essentially means free, open and accessible. This is the opposite of proprietary products such as Microsoft Excel or SPSS which you need to pay for and the software is private
+
+---
+
+In official statistics we need to:
+
+--
+
+- Query databases
+
+--
+
+- Match, transform and analyse data
+
+--
+
+- QA our data and processing
+
+--
+
+- Version control this
+
+
+---
+
+Therefore we recommend the following tools:
+
+--
+
+- Use R or SQL to query databases
+
+--
+
+- Use R to match, transform and analyse data
+
+--
+
+- Use R to QA our processes
+
+???
+
+R is incredibly powerful, and can be used to connect to SQL and run SQL queries
+
+It is also ideal for automating the quality assurance of our data 
+
+Examples of R's versatility - data screener, guidance website, EES analytics dashboard, self-assessment tool, even this presentation
+
+Our goal is for teams to work towards using R to run everything from extracting data from the database to outputting the data files and QA reports
+
+--
+
+- Use Git to version control this
+
+???
+
+Git is the best version control software available, and is widely used across data science and software development
+
+More detail, and learning resources on all of these can be found in our guidance
+
+---
+layout: false
+
+# What is RAP
+
+### Summary
+
+--
+
+RAP is a framework for best practice, and will:
+
+--
+
+- improve and standardise our current production processes
+
+--
+
+- provide a clear 'pipeline' for analysts to follow
+
+--
+
+- help us to monitor and track improvement work
+
+--
+
+- help to define the L+D requirements of our role in processing data for publications
+
+???
+
+Teams will start from different places and will implement changes at different rates, and in different ways, we expect this
+
+---
+layout: true
+
+# Why care about RAP
+
+---
+
+--
+
+It's our job to care...
+
+--
+
+Code of practice:
+
+- Q2: Sound methods
+
+  - `Q2.1 Methods and processes should be based on national or international good practice, scientific principles, or established professional consensus.`
+
+???
+
+RAP is the national framework for best practice
+
+--
+
+- AQUA book
+
+???
+
+reducing the likelihood of human errors is paramount, RAP is built around this
+
+--
+
+
+- Ongoing OSR review
+
+???
+
+We've fed into this
+
+Due out next year
+
+---
+
+Is a cross-government movement 
+
+--
+
+- RAP Champions 
+
+???
+
+Laura and I are RAP champions for our department and are in touch with other RAP champions across government
+
+There's definitely a few pockets in OGD's that are ahead of us on this
+
+We want to be leading the way with RAP like we are doing with EES
+
+We have everything in place to take advantage of
+
+This is our opportunity to solidify our position as a front-runner in Official Statistics
+
+--
+
+- GSS Best Practice guidance
+
+???
+
+Due out next year, I stumbled across a draft a couple of weeks ago and it's strikingly similar to our own guidance website we already have
+
+If anything it sets a far higher bar than we are doing in terms of technical skill
+
+Our best practice is similar to their minimum expectations, so we have work to do!
+
+---
+
+It brings us numerous benefits to our processes:
+
+--
+
+- Quicker
+
+--
+
+- More reliable
+
+--
+
+- Better documented
+
+--
+
+- Reduces key person dependencies
+
+--
+
+- Is a great opportunity for learning and development
+
+???
+
+Skills learnt and used will be core to our profession for decades to come
+
+Is very much an opportunity for us to grab, and should not be seen as a burden
+
+It is our job to be the best we can be at this
+
+---
+layout: true
+
+# What we need to do
+
+---
+
+--
+
+- Complete first response on the [self assessment tool](https://rsconnect/rsc/publication-self-assessment/)
+
+???
+
+This will involve you reviewing your proccesses as they stand
+
+I'll demo this later
+
+--
+
+- Review our guidance
+
+--
+
+- Prioritise learning and development
+
+???
+
+Familiarity with R
+
+This isn't specific to analysts within teams, it should include team leaders and managers too
+
+Keep an active eye on opportunities for using R, for example if there is an ad-hoc request that is coming up, or bit of side-analysis, consider if you can commit slightly more time to do it using R if you wouldn't already do so
+
+Embedding learning into the job is the most rewarding way to approach this
+
+Short videos to get started with R will happen soon, though there are resources there already to use on our website that I'll show you later
+
+--
+
+- Target for teams to be operating at 'great practice' by the end of 2021
+
+
+---
+layout: false
+
+# Support
+
+--
+
+We've set this up to give teams two paths:
+
+--
+
+1. Self serve from our guidance, use us for advice if needed
+
+???
+
+Using the guidance, completing the self-assessment, everything you need to do this is there
+
+--
+
+2. Sign up to the partnership programme
+
+???
+
+Joint resource commitment from our team and your team
+
+Arranged on a case-by-case basis, planned out and run as a project
+
+SEN2 example, academies MI example
+
+---
+layout: true
+
+# Recap
+
+---
+
+--
+
+1. RAP is national best practice, making our processes automated and more efficient
+
+--
+
+2. Learning R will be key to implementing RAP
+
+--
+
+3. See our guidance for a detailed breakdown of RAP
+
+--
+
+4. Complete initial self-assessment ASAP
+
+--
+
+5. Goal of great practice by the end of 2021
+
+--
+
+6. Make use of the statistics development team
+
+---
+layout: true
+class: center, middle
+
+# Thanks!
+
+---
+
+Made with [xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html) package in R
+
+Any questions?
+
+[statistics.development@education.gov.uk](mailto:statistics.development@education.gov.uk)
+
+https://rsconnect/rsc/publication-self-assessment/
+
+https://rsconnect/rsc/stats-production-guidance/
+
+???
+
+Slides will be available afterwards online
+
+This was made the with R, using the xaringan package, which is an extension for rmarkdown, and I'd really recommend you check it out, as the amount of flexibility is incredible and the keyboard shortcuts are really nice when presenting
+
+I'll quickly demo the self assessment app and the stats production guidance now, then there'll be time for questions, though there's also our team's email there if you have questions or want to discuss anything afterwards, aware that some of you may be watching this back at a later date
