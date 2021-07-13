@@ -1,8 +1,19 @@
 # RAP Overview
 
-Presentation given to the Data Insight and Statistics Division in December 2020 for DfE Official and National statistics. Slides hosted on github pages at https://cjrace.github.io/introduction-to-rap/#1
+Presentation given to fast-stream statisticians in July 2021 as an introduction to RAP. Slides hosted on [GitHub pages](https://cjrace.github.io/introduction-to-rap-2/#1)
 
-The session was recorded and can be accessed (on DfE devices) at https://web.microsoftstream.com/video/f4fb4ae9-3149-4d7c-8968-ff4c11dc8ac3
+Recording to follow...
 
-For more information on RAP, see our guidance website at https://rsconnect/rsc/stats-production-guidance or get in touch with me at cameron.race@education.gov.uk
-# introduction-to-rap-2
+If you're interested in RAP across government more generally, contact the [RAP Champion/s](https://gss.civilservice.gov.uk/about-us/champion-networks/reproducible-analytical-pipeline-rap-champions/#list-of-champions) in your department, and  get involved in the #rap_collaboration slack channel on the [gov data science slack workspace](https://govdatascience.slack.com/).
+
+For more information on RAP in DfE, see our [guidance website](https://dfe-analytical-services.github.io/stats-production-guidance-copy/), or get in touch with me at cameron.race@education.gov.uk.
+
+## Other resources:
+
+[GSS RAP website](https://gss.civilservice.gov.uk/reproducible-analytical-pipelines/)
+
+[Agreed MVP for RAP on GitHub](https://github.com/best-practice-and-impact/rap_mvp_maturity_guidance/blob/master/Reproducible-Analytical-Pipelines-MVP.md)
+
+[AQUA Book](https://www.gov.uk/government/publications/the-aqua-book-guidance-on-producing-quality-analysis-for-government)
+
+[The Duck Book](https://best-practice-and-impact.github.io/qa-of-code-guidance/intro.html)
